@@ -12,7 +12,9 @@ class Comment
 
     private $article;
 	
-	private $parents;
+	private $par_id;
+	
+	private $level;
 
     public function getId() {
         return $this->id;
@@ -50,12 +52,21 @@ class Comment
         return $this;
     }
 	
-	public function getParents() {
-		return $this->parents;
+	public function getParentId() {
+		return $this->par_id;
 	}
 	
-	public function setParents($parents) {
-		$this->article = $article;
+	public function setParentId($par_id) {
+		$this->par_id = $par_id;
+		return $this;
+	}
+	
+	public function getLevel() {
+		return $this->level;
+	}
+	
+	public function setLevel($level) {
+		$this->level = $level;
 		return $this;
 	}
 }

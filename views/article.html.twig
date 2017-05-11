@@ -1,4 +1,5 @@
 {% extends "layout.html.twig" %}
+{% import "macros/_macroThreadedComments.html.twig" as macroThreadedComments %}
 
 {% block title %}{{ article.title }}{% endblock %}
 
@@ -7,15 +8,19 @@
     <h2>{{ article.title }}</h2>
     <p>{{ article.content }}</p>
 
-    <h3>Comments</h3>
+    <h3>Commentaires</h3>
     {% for comment in comments %}
         <strong>{{ comment.author.username }}</strong> dit : {{ comment.content }}<br>
 		
     {% else %}
 		Pas de commentaire
     {% endfor %}
-
-    <h3>Add a comment</h3>
+    {% if par.level >= 0 and par.level < 3 %}
+	<button type="button" class="btn btn-primary btn-sm respondButton" title="Répondre au commentaire" id="respond-{{ par.id }}">
+    Répondre
+    </button>
+	{% endif %}
+    <h3>Ajouter un commentaire</h3>
     {% if commentForm %}
         {{ form_start(commentForm) }}
             <div class="form-group">
@@ -27,16 +32,16 @@
                 }}) }}
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Publish comment" />
+                <input type="submit" class="btn btn-primary" value="Publier le commentaire" />
             </div>
         {{ form_end(commentForm) }}
         {% for flashMessage in app.session.flashbag.get('success') %}
             <div class="alert alert-success">
                 {{ flashMessage }}
             </div>
-        {% endfor %}
+        {% endfor %} 
     {% else %}
-        <a href="{{ path('login') }} ">Log in</a> to add comments.
+        <a href="{{ path('login') }} ">Connectez vous</a> pour ajouter un commentaire.
     {% endif %}
 </p>
 {% endblock %}

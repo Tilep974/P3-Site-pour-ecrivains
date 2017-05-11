@@ -25,7 +25,7 @@ class ArticleDAO extends DAO
 		if ($row)
 			return $this->buildDomainObject($row);
 		else
-			throw new \Exception("No article matching id " . $id);
+			throw new \Exception("Aucun article ne correspond à l'ID : " . $id);
 	}
 	
 	public function save(Article $article) {

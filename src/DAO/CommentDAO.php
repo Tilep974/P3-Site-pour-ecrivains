@@ -20,7 +20,7 @@ class CommentDAO extends DAO
 	
 	public function findAllByArticle($articleId) {
 		$article = $this->articleDAO->find($articleId);
-		$sql = "select com_id, com_content, usr_id, par_id from t_comment where art_id=? order by com_id";
+		$sql = "select com_id, com_content, usr_id, com_level, par_id from t_comment where art_id=? order by com_id";
 		$result = $this->getDb()->fetchAll($sql, array($articleId));
 		
 		$comments = array();
@@ -37,7 +37,9 @@ class CommentDAO extends DAO
 		$commentData = array(
 			'art_id' => $comment->getArticle()->getId(),
 			'usr_id' => $comment->getAuthor()->getId(),
-			'com_content' => $comment->getContent()
+			'com_content' => $comment->getContent(),
+			'com_level' => $comment->getLevel(),
+			'par_id' => $comment->getParentId(),
 		);
 		
 		if ($comment->getId()) {
@@ -50,16 +52,58 @@ class CommentDAO extends DAO
 	}
 	
 	public function findAll() {
-        $sql = "select * from t_comment order by com_id desc";
+        $sql = "select * from t_comment where par_id is null order by com_id desc";
         $result = $this->getDb()->fetchAll($sql);
 
         $entities = array();
         foreach ($result as $row) {
             $id = $row['com_id'];
             $entities[$id] = $this->buildDomainObject($row);
+			$sql1 = "select * from t_comment where com_id is null".$id." order by com_id desc";
+			$result2 = $this->getDb()->fetchAll($sql1);
+			$entities[$id] = array();
+		foreach ($result2 as $row2) {
+			$id2 = $row2['com_id'];
+			$entities[$id][$id2] = $this->buildDomainObject($row2);
+		}
         }
         return $entities;
     }
+	
+	public function findAllParentsByArticle($articleId) {
+		$article = $this->articleDAO->find($articleId);
+		$sql = "SELECT * from t_comment where art_id=? and par_id is null";
+		$result = $this->getDb()->fetchAll($sql, array($articleId));
+		
+		$comments = array();
+		foreach($result as $row) {
+			$commentId = $row['com_id'];
+			$comment = $this->buildDomainObject($row);
+			
+			$comment->setArticle($article);
+		
+			$comments[$commentId] = $comment;
+		}
+		return $comments;
+	}
+	
+	public function findAllChildrenByArticle($articleId) {
+		$article = $this->articleDAO->find($articleId);
+		
+		$sql = "select * from t_comment where art_id=? and par_id is not null";
+		$result = $this->getDB()->fetchAll($sql, array($articleId));
+		
+		$comments = array();
+		foreach ($result as $row) {
+			$commentId = $row['com_id'];
+			$comment = $this->buildDomainObject($row);
+			
+			$comment->setARticle($article);
+			
+			$comments[$commentId] = $comment;
+		}
+		return $comments;
+	}
 	
 	public function deleteAllByArticle($articleId) {
 		$this->getDb()->delete('t_comment', array('art_id' => $articleId));

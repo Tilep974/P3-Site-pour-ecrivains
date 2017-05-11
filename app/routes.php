@@ -34,9 +34,15 @@ $app->match('/article/{id}', function ($id, Request $request) use ($app) {
     }
 	$comments = $app['dao.comment']->findAllByArticle($id);
 	
+	//fetch all comments in two separate arrays
+    //depending on it being a first comment or a children comment
+    $parents = $app['dao.comment']->findAllParentsByArticle($id);
+    $children = $app['dao.comment']->findAllChildrenByArticle($id);
+	
 	return $app['twig']->render('article.html.twig', array(
 		'article' => $article,
 		'comments' => $comments,
+		'par' => $parents,
 		'commentForm' => $commentFormView));
 })->bind('article');
 
@@ -81,8 +87,12 @@ $app->match('/admin/article/{id}/edit', function($id, Request $request) use ($ap
         $app['dao.article']->save($article);
         $app['session']->getFlashBag()->add('success', 'The article was successfully updated.');
     }
+	$parents = $app['dao.comment']->findAllParentsByArticle($id);
+	$children = $app['dao.comment']->findAllChildrenByArticle($id);
     return $app['twig']->render('article_form.html.twig', array(
         'title' => 'Edit article',
+		'parents' => $parents,
+		'children' => $children,
         'articleForm' => $articleForm->createView()));
 })->bind('admin_article_edit');
 
@@ -108,7 +118,10 @@ $app->match('/admin/comment/{id}/edit', function($id, Request $request) use ($ap
     }
     return $app['twig']->render('comment_form.html.twig', array(
         'title' => 'Edit comment',
+		'parents' => $parents,
+		'children' => $children,
         'commentForm' => $commentForm->createView()));
+
 })->bind('admin_comment_edit');
 
 // Remove a comment
@@ -172,3 +185,4 @@ $app->get('/admin/user/{id}/delete', function($id, Request $request) use ($app) 
     // Redirect to admin home page
     return $app->redirect($app['url_generator']->generate('admin'));
 })->bind('admin_user_delete');
+
