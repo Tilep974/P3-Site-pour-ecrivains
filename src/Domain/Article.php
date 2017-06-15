@@ -10,6 +10,10 @@ class Article
 	
 	private $content;
 	
+	private $date;
+	
+	private $last_modif;
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -36,4 +40,22 @@ class Article
 		$this->content = $content;
 		return $this;
 	}
+	
+    public function getDate() {
+        return $this->date;
+    }
+
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
+	
+	public function getLastModif() {
+        return $this->last_modif;
+    }
+
+    public function setLastModif($last_modif) {
+        $this->last_modif = $last_modif;
+        return $this;
+    }
 }

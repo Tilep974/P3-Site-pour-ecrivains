@@ -1,15 +1,15 @@
 <?php
-namespace MicroCMS\Controller\Blog;
+namespace Livre\Controller\Blog;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use MicroCMS\Domain\ChangePassword;
-use MicroCMS\Domain\User;
-use MicroCMS\Form\Type\BasicUserDataType;
-use MicroCMS\Form\Type\UserPasswordType;
-use MicroCMS\Form\Type\UserDeleteType;
+use Livre\Domain\ChangePassword;
+use Livre\Domain\User;
+use Livre\Form\Type\BasicUserDataType;
+use Livre\Form\Type\UserPasswordType;
+use Livre\Form\Type\UserDeleteType;
 
 class BlogProfileController {
     /**
@@ -30,7 +30,7 @@ class BlogProfileController {
     /**
      * Relog the user in
      *
-     * @param MicroCMS\Domain\User $user User being relogged
+     * @param Livre\Domain\User $user User being relogged
      * @param Application $app Silex application
      */
     private function relogUserIn(User $user, Application $app) {
@@ -44,7 +44,7 @@ class BlogProfileController {
     /**
      * Manage the basic user data form submission
      *
-     * @param MicroCMS\Domain\User $user The active user
+     * @param Livre\Domain\User $user The active user
      * @param Application $app Silex application
      */
     private function basicDataFormSubmission(User $user, Application $app) {
@@ -71,8 +71,8 @@ class BlogProfileController {
     /**
      * Manage the user password form submission
      *
-     * @param MicroCMS\Domain\ChangePassword $model ChangePassword entity
-     * @param MicroCMS\Domain\User $user The active user
+     * @param Livre\Domain\ChangePassword $model ChangePassword entity
+     * @param Livre\Domain\User $user The active user
      * @param Application $app Silex application
      */
     private function userPasswordFormSubmission(ChangePassword $model, User $user, Application $app) {
@@ -99,7 +99,7 @@ class BlogProfileController {
     /**
      * Log the user in
      *
-     * @param MicroCMS\Domain\User $user User registering
+     * @param Livre\Domain\User $user User registering
      * @param Application $app Silex application
      */
     private function logUserOut(Application $app) {
@@ -112,7 +112,7 @@ class BlogProfileController {
      * Manage the user password form submission
      *
      * @param string $userPwd User's current password
-     * @param MicroCMS\Domain\User $user The active user
+     * @param Livre\Domain\User $user The active user
      * @param Application $app Silex application
      */
     private function userDeleteFormSubmission($userPwd, User $user, Application $app) {

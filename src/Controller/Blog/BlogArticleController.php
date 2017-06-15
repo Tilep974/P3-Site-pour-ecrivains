@@ -77,6 +77,9 @@ class BlogArticleController {
         if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $app['user'];
 
+            //we fill the flags array with the comments the user might have already flagged
+            $flags = $app['dao.flag']->findAllByUser($user->getId());
+
             //Generate the potential new comment
             $comment = new Comment();
             $comment->setArticle($article);
@@ -169,6 +172,7 @@ class BlogArticleController {
             'article' => $article,
             'parents' => $parents,
             'children' => $children,
+            'flags' => $flags,
             'mainForm' => $mainFormView,
             'commentForms' => $commentFormViews,
             'editForms' => $editFormViews

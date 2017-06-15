@@ -16,7 +16,7 @@ class CommentType extends AbstractType {
 	public function setDefaultOptions(OptionsResolverInterface $resolver) 
 	{
 		$resolver->setDefaults(array(
-			'data_class' => 'Livre\Comain\Comment'
+			'data_class' => 'Livre\Domain\Comment'
 			));
 	}
 	

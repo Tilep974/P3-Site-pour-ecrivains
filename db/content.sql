@@ -19,3 +19,4 @@ insert into t_comment values
 (1, 'Great! Keep up the good work.', 1, 1, 0, 0, NULL);
 insert into t_comment values
 (2, "Thank you, I'll try my best.", 1, 2, 0, 0, 1);
+

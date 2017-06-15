@@ -89,7 +89,7 @@
                         </p>
                     {% endif %}
                     <!-- End edit and delete -->
-					
+
                     <!-- Report and respond -->
                     <p class="pull-right">
                         {% if user.id != parent.author.id %}
@@ -109,6 +109,7 @@
                                 Répondre
                             </button>
                         {% endif %}
+
                         <!-- Report modal window -->
                         {% if user.id != parent.author.id %}
                             <div class="modal fade" id="flagDialog{{ parent.id }}" tabindex="-1" role="dialog" aria-labelledby="flagModalLabel" aria-hidden="true">

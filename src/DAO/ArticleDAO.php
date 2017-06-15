@@ -46,6 +46,20 @@ class ArticleDAO extends DAO
 	public function delete($id) {
 		$this->getDb()->delete('t_article', array('art_id' => $id));
 	}
+	
+	public function findLasts() {
+        $sql = "select * from t_article order by art_id desc limit 0, 4";
+        $result = $this->getDb()->fetchAll($sql);
+
+        //Convert query results to an array of Domain objects
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+
+        return $articles;
+    }
 			
 	
 	protected function buildDomainObject(array $row) {

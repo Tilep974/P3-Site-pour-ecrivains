@@ -1,10 +1,10 @@
 <?php
-namespace MicroCMS\Controller\Admin;
+namespace Livre\Controller\Admin;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use MicroCMS\Domain\Article;
-use MicroCMS\Form\Type\ArticleType;
+use Livre\Domain\Article;
+use Livre\Form\Type\ArticleType;
 
 class AdminArticlesController {
     /**

@@ -1,18 +1,18 @@
 <?php
-namespace MicroCMS\Controller\Admin;
+namespace Livre\Controller\Admin;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use MicroCMS\Domain\User;
-use MicroCMS\Form\Type\UserType;
-use MicroCMS\Form\Type\UserEditBasicType;
-use MicroCMS\Form\Type\UserEditPasswordType;
+use Livre\Domain\User;
+use Livre\Form\Type\UserType;
+use Livre\Form\Type\UserEditBasicType;
+use Livre\Form\Type\UserEditPasswordType;
 
 class AdminUsersController {
     /**
      * Encode a plain password
      *
-     * @param MicroCMS\Domain\User $user User registering
+     * @param Livre\Domain\User $user User registering
      * @param Application $app Silex application
      */
     private function encodePassword(User $user, Application $app) {

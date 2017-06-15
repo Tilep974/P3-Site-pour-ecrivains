@@ -1,5 +1,5 @@
 <?php
-namespace MicroCMS\Controller\Admin;
+namespace Livre\Controller\Admin;
 
 use Silex\Application;
 

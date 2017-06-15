@@ -1,9 +1,9 @@
 <?php
-namespace MicroCMS\Controller\Admin;
+namespace Livre\Controller\Admin;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use MicroCMS\Form\Type\CommentType;
+use Livre\Form\Type\CommentType;
 
 class AdminCommentsController {
     /**

@@ -12,9 +12,17 @@ class Comment
 
     private $article;
 	
-	private $par_id;
+	private $parent_id;
 	
 	private $level;
+	
+	private $date;
+	
+	private $is_deleted;
+	
+	private $number_flags;
+	
+	
 
     public function getId() {
         return $this->id;
@@ -53,11 +61,11 @@ class Comment
     }
 	
 	public function getParentId() {
-		return $this->par_id;
+		return $this->parent_id;
 	}
 	
-	public function setParentId($par_id) {
-		$this->par_id = $par_id;
+	public function setParentId($parent_id) {
+		$this->parent_id = $parent_id;
 		return $this;
 	}
 	
@@ -69,4 +77,32 @@ class Comment
 		$this->level = $level;
 		return $this;
 	}
+	
+	    public function getDate() {
+        return $this->date;
+    }
+
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
+	
+	public function getIsDeleted() {
+        return $this->is_deleted;
+    }
+
+    public function setIsDeleted($is_deleted) {
+        $this->is_deleted = $is_deleted;
+        return $this;
+    }
+	
+	public function getNumberFlags() {
+        return $this->number_flags;
+    }
+
+    public function setNumberFlags($number_flags) {
+        $this->number_flags = $number_flags;
+        return $this;
+    }
+	
 }

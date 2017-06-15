@@ -1,18 +1,18 @@
 <?php
-namespace MicroCMS\Controller\Blog;
+namespace Livre\Controller\Blog;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use MicroCMS\Domain\User;
-use MicroCMS\Form\Type\UserType;
+use Livre\Domain\User;
+use Livre\Form\Type\UserType;
 
 class BlogRegisterController {
     /**
      * Encode a plain password
      *
-     * @param MicroCMS\Domain\User $user User registering
+     * @param Livre\Domain\User $user User registering
      * @param Application $app Silex application
      */
     private function encodePassword(User $user, Application $app) {
@@ -29,7 +29,7 @@ class BlogRegisterController {
     /**
      * Log the user in
      *
-     * @param MicroCMS\Domain\User $user User registering
+     * @param Livre\Domain\User $user User registering
      * @param Application $app Silex application
      */
     private function logUserIn(User $user, Application $app) {

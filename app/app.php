@@ -52,6 +52,15 @@ $app['dao.comment'] = function ($app) {
 	return $commentDAO;
 };
 
+$app['dao.flag'] = function($app) {
+    $flagDAO = new Livre\DAO\FlagDAO($app['db']);
+    $flagDAO->setArticleDAO($app['dao.article']);
+    $flagDAO->setUserDAO($app['dao.user']);
+    $flagDAO->setCommentDAO($app['dao.comment']);
+
+    return $flagDAO;
+};
+
 // Register JSON data decoder for JSON requests
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
