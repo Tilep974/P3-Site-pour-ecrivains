@@ -3,9 +3,9 @@
 $app['db.options'] = array(
     'driver'   => 'pdo_mysql',
     'charset'  => 'utf8',
-    'host'     => 'localhost',
-    'port'     => '3306',
+    'host'     => '127.0.0.1',
+    'port'     => '27',
     'dbname'   => 'Livre',
-    'user'     => 'root',
-    'password' => '',
+    'user'     => 'lepinay',
+    'password' => '95TLRJgV',
 );
