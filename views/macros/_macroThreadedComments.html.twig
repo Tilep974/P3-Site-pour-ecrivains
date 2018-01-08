@@ -44,51 +44,7 @@
                 <hr class="marginTopless marginBottomless" />
 
                 {% if parent.isDeleted == false %}
-                    <!-- Edit and delete -->
-                    {% if user.id == parent.author.id %}
-                        <p class="pull-left">
-                            <button class="btn btn-info btn-xs editButton" title="Modifier le commentaire" id="editButton-{{ parent.id }}">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                            <button class="btn btn-danger btn-xs" title="Supprimer le commentaire" data-toggle="modal" data-target="#deleteDialog{{ parent.id }}" id="deleteButton-{{ parent.id }}">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-
-                            <!-- Delete modal window -->
-                            <div class="modal fade" id="deleteDialog{{ parent.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                &times;
-                                            </button>
-                                            <h4 class="modal-title" id="deleteModalLabel">
-                                                Confirmation
-                                            </h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>
-                                                Êtes-vous certain de vouloir supprimer ce commentaire ?
-                                            </p>
-                                            <p>
-                                                Seul son contenu sera effacé. Il sera aussi impossible d'y répondre.
-                                            </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                Annuler
-                                            </button>
-                                            <a href="#" class="btn btn-info confirmDeleteButton" id="confirmDelete-{{ parent.id }}">
-                                                Confirmer
-                                            </a>
-                                        </div>
-                                    </div><!-- modal-content -->
-                                </div><!-- modal-dialog -->
-                            </div><!-- modal -->
-                            <!-- End delete modal window -->
-                        </p>
-                    {% endif %}
-                    <!-- End edit and delete -->
+                    
 
                     <!-- Report and respond -->
                     <p class="pull-right">

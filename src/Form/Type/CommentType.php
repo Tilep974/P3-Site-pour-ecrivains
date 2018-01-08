@@ -1,27 +1,35 @@
-<?php
+{% extends 'layout.html.twig' %}
+{% set adminMenu = true %}
 
-namespace Livre\Form\Type;
+{% block title %}{{ title }}{% endblock %}
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+{% block content %}
+<h2 class="text-center">{{ block('title') }}</h2>
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">
+    {{ flashMessage }}
+</div>
+{% endfor %}
 
-class CommentType extends AbstractType {
-	
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
-		$builder->add('content', TextareaType::class);
-	}
-	
-	public function setDefaultOptions(OptionsResolverInterface $resolver) 
-	{
-		$resolver->setDefaults(array(
-			'data_class' => 'Livre\Domain\Comment'
-			));
-	}
-	
-	public function getName() 
-	{
-		return 'comment';
-	}
-}
+<div class="well">
+{{ form_start(commentForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(commentForm.content, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(commentForm.content) }}
+            {{ form_widget(commentForm.content, { 'attr':  {
+                'class': 'form-control',
+                'rows': '4'                
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+    </div>
+{{ form_end(commentForm) }}
+</div>
+{% endblock %}

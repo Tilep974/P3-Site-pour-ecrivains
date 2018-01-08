@@ -69,15 +69,15 @@
         <a href="{{ path('admin_article_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nouvelle Article</button></a>
     </div>
     <div class="tab-pane fade adminTable" id="comments">
-        {% if comments %}
+{% if comments %}
         <div class="table-responsive">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
                         <th>Article</th>
-                        <th>Auteur</th>
-                        <th>Contenu</th>
-                        <th></th>
+                        <th>Author</th>
+                        <th>Content</th>
+                        <th></th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 {% for comment in comments %}
@@ -94,25 +94,25 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Voulez vous vraiment supprimée ce commentaire ?
+                                        Do you really want to delete this comment ?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annulé</button>
-                                        <a href="{{ path('admin_comment_delete', { 'id': comment.id }) }}" class="btn btn-danger">Confirmé</a>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <a href="{{ path('admin_comment_delete', { 'id': comment.id }) }}" class="btn btn-danger">Confirm</a>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
                     </td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas de commentaire</div>
+        <div class="alert alert-warning">No comments found.</div>
         {% endif %}
         
     </div>
@@ -170,7 +170,5 @@
         
     </div>
 </div>
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
 
 {% endblock %}

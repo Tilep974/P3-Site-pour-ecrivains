@@ -15,18 +15,15 @@ class AdminCommentsController {
      */
     public function editCommentAction($id, Request $request, Application $app) {
         $comment = $app['dao.comment']->find($id);
-
         $commentForm = $app['form.factory']->create(CommentType::class, $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $app['dao.comment']->save($comment);
-            $app['session']->getFlashBag()->add('success', 'Le commentaire a été modifié avec succès.');
+            $app['session']->getFlashBag()->add('success', 'The comment was successfully updated.');
         }
-
         return $app['twig']->render('comment_form.html.twig', array(
-            'title' => 'Modifier le commentaire',
-            'commentForm' => $commentForm->createView()
-        ));
+            'title' => 'Edit comment',
+            'commentForm' => $commentForm->createView()));
     }
 
     /**
@@ -53,3 +50,4 @@ class AdminCommentsController {
         return $app->redirect($app['url_generator']->generate('admin'));
     }
 }
+

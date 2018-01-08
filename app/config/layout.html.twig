@@ -57,17 +57,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ path('home') }}"><font color="White">Accueil</font></a>
+                    <a class="navbar-brand" href="{{ path('home') }}"><font color="black">Accueil</font></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav navbar-right">
 						{% if app.user and is_granted('ROLE_ADMIN') %}
-							<li class="{% if adminMenu is defined %}active{% endif %}"><a href="{{ path('admin') }}"><span class="glyphicon glyphicon-cog"></span><font color="White"> Administration </font></a></li>
+							<li class="{% if adminMenu is defined %}active{% endif %}"><a href="{{ path('admin') }}"><span class="glyphicon glyphicon-cog"></span><font color="black"> Administration </font></a></li>
 						{% endif %}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span><font color="White"> Bienvenue, {{ app.user.username }}</font> <b class="caret"></b></a>
+                                <span class="glyphicon glyphicon-user"></span><font color="black"> Bienvenue, {{ app.user.username }}</font> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('logout') }}">Deconnection</a></li>
                                 </ul>
@@ -75,7 +75,7 @@
                         {% else %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span><font color="White"> Non Connecté </font><b class="caret"></b></a>
+                                <span class="glyphicon glyphicon-user"></span><font color="black"> Non Connecté </font><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('login') }}">  Connection </a></li>
                                 </ul>
@@ -92,14 +92,14 @@
 		</div>
 		
 	<script src="{{ asset('/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/lib/bootstrap/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="lib/bootstrap/vendor/jquery/jquery.min.js"></script>
 
-    <script src="{{ asset('/lib/bootstrap/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="lib/bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="{{ asset('/lib/js/jqBootstrapValidation.js') }}"></script>
-    <script src="{{ asset('/lib/js/contact_me.js') }}"></script>
+    <script src="lib/js/jqBootstrapValidation.js"></script>
+    <script src="lib/js/contact_me.js"></script>
 
-    <script src="{{ asset('/lib/js/clean-blog.min.js') }}"></script>
+    <script src="lib/js/clean-blog.min.js"></script>
 
 	</body>
 
