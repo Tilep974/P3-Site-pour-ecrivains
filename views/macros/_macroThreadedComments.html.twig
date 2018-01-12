@@ -25,7 +25,7 @@
                                 {{ form_widget(editForm.content, { 'attr' : {
                                         'rows' : '4',
                                         'class' : 'form-control',
-                                        'placeholder' : 'Entrez votre commentaire'
+                                        'placeholder' : 'Entre votre commentaire'
                                     }})
                                 }}
                             </div>
@@ -49,7 +49,7 @@
                     <!-- Report and respond -->
                     <p class="pull-right">
                         {% if user.id != parent.author.id %}
-                            {% if parent.id in flags|keys %}
+                            {% if parent.id in flags %}
                                 <button type="button" class="btn btn-warning btn-sm disabled" title="Commentaire déjà signalé">
                                     Déjà signalé
                                 </button>

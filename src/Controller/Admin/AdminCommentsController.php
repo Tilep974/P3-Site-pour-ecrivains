@@ -7,26 +7,6 @@ use Livre\Form\Type\CommentType;
 
 class AdminCommentsController {
     /**
-     * Edit comment controller.
-     *
-     * @param integer $id Comment id
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
-     */
-    public function editCommentAction($id, Request $request, Application $app) {
-        $comment = $app['dao.comment']->find($id);
-        $commentForm = $app['form.factory']->create(CommentType::class, $comment);
-        $commentForm->handleRequest($request);
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $app['dao.comment']->save($comment);
-            $app['session']->getFlashBag()->add('success', 'The comment was successfully updated.');
-        }
-        return $app['twig']->render('comment_form.html.twig', array(
-            'title' => 'Edit comment',
-            'commentForm' => $commentForm->createView()));
-    }
-
-    /**
      * Delete comment controller.
      *
      * @param integer $id Comment id

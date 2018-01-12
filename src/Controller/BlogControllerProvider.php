@@ -22,6 +22,9 @@ class BlogControllerProvider implements ControllerProviderInterface {
         //Individual article pages with comments
         //match() for POST+GET
         $controllers->match('/article/{id}', "Livre\Controller\Blog\BlogArticleController::articleAction")->bind('article');
+		
+		 //Flag a comment in the database
+        $controllers->match('/chapitre/commentaire/flag', "Livre\Controller\Blog\BlogArticleController::commentFlagAction")->bind('user_comment_flag');
 
         //Delete a comment (via user)
         $controllers->match('/article/commentaire/supprimer', "Livre\Controller\Blog\BlogArticleController::deleteCommentAction")->bind('user_comment_delete');

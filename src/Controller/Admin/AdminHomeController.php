@@ -12,9 +12,6 @@ class AdminHomeController {
         return ($a->getNumberFlags() > $b->getNumberFlags()) ? -1 : 1;
     }
 
-
-
-
     /**
      * Admin home page controller.
      *

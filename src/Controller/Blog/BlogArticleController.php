@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Livre\Domain\Comment;
+use Livre\Domain\Flag;
 use Livre\Form\Type\CommentType;
 
 class BlogArticleController {

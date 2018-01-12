@@ -1,174 +1,97 @@
-{% extends 'layout.html.twig' %}
+{% extends "layout.html.twig" %}
+{% import "macros/_macroAdminUsers.html.twig" as macroAdminUsers %}
+{% import "macros/_macroAdminComments.html.twig" as macroAdminComments %}
+{% import "macros/_macroAdminArticles.html.twig" as macroAdminArticles %}
 {% set adminMenu = true %}
 
-{% block title %}Administration{% endblock %}
+{% block title %}
+    Administration
+{% endblock %}
 
 {% block content %}
+    <div id="pageOpening">
+        <h2>{{ block('title') }}</h2>
+        <hr />
 
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
-{% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-    {{ flashMessage }}
-</div>
-{% endfor %}
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a href="#articles" data-toggle="tab">Articles</a></li>
-            <li><a href="#comments" data-toggle="tab">Commentaire</a></li>
-            <li><a href="#users" data-toggle="tab">Utilisateurs</a></li>
-        </ul>
-    </div>
-</div>
-<div class="tab-content">
-    <div class="tab-pane fade in active adminTable" id="articles">
-        {% if articles %}
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Titre</th>
-                        <th>Contenu</th>
-                        <th></th>  <!-- Actions column -->
-                    </tr>
-                </thead>
-                {% for article in articles %}
-                <tr>
-                    <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
-                    <td>{{ article.content | truncate(60) }}</td>
-                    <td>
-                        <a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="articleDialog{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Voulez vous vraiment supprimée cet Article ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annulée</button>
-                                        <a href="{{ path('admin_article_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirmé</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        {% else %}
-        <div class="alert alert-warning">Pas d'article trouvé</div>
-        {% endif %}
-        <a href="{{ path('admin_article_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nouvelle Article</button></a>
-    </div>
-    <div class="tab-pane fade adminTable" id="comments">
-{% if comments %}
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Article</th>
-                        <th>Author</th>
-                        <th>Content</th>
-                        <th></th>  <!-- Actions column -->
-                    </tr>
-                </thead>
-                {% for comment in comments %}
-                <tr>
-                    <td><a class="articleTitle" href="{{ path('article', { 'id': comment.article.id }) }}">{{ comment.article.title }}</a></td>
-                    <td>{{ comment.author.username }}</td>
-                    <td>{{ comment.content | truncate(60) }}</td>
-                    <td>
-                        <a href="{{ path('admin_comment_edit', { 'id': comment.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#commentDialog{{ comment.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="commentDialog{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Do you really want to delete this comment ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('admin_comment_delete', { 'id': comment.id }) }}" class="btn btn-danger">Confirm</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        {% else %}
-        <div class="alert alert-warning">No comments found.</div>
-        {% endif %}
-        
-    </div>
-    <div class="tab-pane fade adminTable" id="users">
-        {% if users %}
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Role</th>
-                        <th></th>  <!-- Actions column -->
-                    </tr>
-                </thead>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.username }}</a></td>
-                    <td>
-                        {% if user.role == 'ROLE_ADMIN' %}
-                            Admin
-                        {% else %}
-                            User
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="userDialog{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Voulez vous vraiment supprimée ce commentaire ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annulée</button>
-                                        <a href="{{ path('admin_user_delete', { 'id': user.id }) }}" class="btn btn-danger">Confirmé</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        {% else %}
-        <div class="alert alert-warning">Pas d'utilisateur trouvé</div>
-        {% endif %}
-        <a href="{{ path('admin_user_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nouvelle utilisateur</button></a>
-        
-    </div>
-</div>
+        <div class="hidden-xs">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li><a href="#articles" data-toggle="tab">Articles</a></li>
+                        <li><a href="#comments" data-toggle="tab">Commentaires</a></li>
+                        <li><a href="#users" data-toggle="tab">Utilisateurs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                <!-- Articles tab -->
+                <div class="tab-pane fade in active adminTable" id="articles">
+                    {{ macroAdminArticles.admin_articles_tab(articles) }}
+                </div>
 
+                <!-- Comments tab -->
+				{{ dump (comments) }}
+                <div class="tab-pane fade adminTable" id="comments">
+                    {{ macroAdminComments.admin_comments_tab(comments, flagCounts) }}
+                </div>
+
+                <!-- Users tab -->
+                <div class="tab-pane fade adminTable" id="users">
+                    {{ macroAdminUsers.admin_users_tab(users) }}
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs" class="panel-group visible-xs-block">
+            <div class="panel panel-default">
+                <a href="#tab1" data-parent="#tabs" data-toggle="collapse">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Articles</h3>
+                    </div>
+                </a>
+                <div id="tab1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        {{ macroAdminArticles.admin_articles_tab(articles) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <a href="#tab2" data-parent="#tabs" data-toggle="collapse">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Commentaires</h3>
+                    </div>
+                </a>
+                <div id="tab2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {{ macroAdminComments.admin_comments_tab(comments) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <a href="#tab3" data-parent="#tabs" data-toggle="collapse">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Utilisateurs</h3>
+                    </div>
+                </a>
+                <div id="tab3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {{ macroAdminUsers.admin_users_tab(users) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,100 @@
+#articleTitle h2 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+#articleContent {
+    padding: 0 30px;
+}
+article footer h5 {
+    text-align: right;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+.marginTopless {
+    margin-top: 0;
+}
+.marginBottomless {
+    margin-bottom: 0;
+}
+
+#commentSection {
+
+
+    padding: 20px;
+    padding-right: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+#commentSection>h3 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+.comment h3 {
+    font-size: 1.4em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.comment .pubDate {
+    text-align: right;
+    font-size: 0.9em;
+    font-weight: normal;
+    font-style: italic;
+}
+.comment {
+    margin: 0 0 10px 0;
+    padding: 0 20px 20px 30px;
+    border-radius: 10px 0;
+}
+.comment .row {
+    margin: 0;
+    margin-top: 5px;
+}
+.comment footer .btn {
+    margin-top: 10px;
+}
+.odd-comment {
+    background-color: #F0F7FA;
+    border: 1px solid #CEDADE;
+}
+.even-comment {
+    background-color: white;
+    border: 1px solid #CEDADE;
+}
+
+.hidden-form {
+    display: none;
+}
+.hidden-form input[class~='btn'] {
+    margin-top: 0;
+}
+.hidden-form .form-group {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+@media (max-width: 767px) {
+    #wrapper {
+        padding: 20px;
+    }
+
+    #commentSection {
+        padding-left: 5px;
+    }
+    .comment h4:not([class='pubDate']) {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    .comment .pubDate {
+        text-align: left;
+    }
+    .comment {
+        padding: 0 5px 20px 10px;
+    }
+}
